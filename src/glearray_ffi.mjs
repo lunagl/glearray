@@ -25,3 +25,7 @@ export function push(array, value) {
   copy.push(value);
   return copy;
 }
+
+export function insert(array, index, value) {
+  return array.toSpliced(index, 0, value);
+}

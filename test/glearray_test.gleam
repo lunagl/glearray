@@ -1,5 +1,6 @@
 import gleam/list
 import gleam/function
+import gleam/result
 import gleeunit
 import gleeunit/should
 import glearray.{type Array}
@@ -81,6 +82,22 @@ pub fn push_test() {
   |> function.tap(glearray.push(_, 4))
   |> glearray.to_list
   |> should.equal([1, 2, 3])
+}
+
+pub fn insert_test() {
+  let array = glearray.from_list([1, 2, 3])
+  array
+  |> glearray.insert(at: 0, value: 9)
+  |> result.map(glearray.to_list)
+  |> should.equal(Ok([9, 1, 2, 3]))
+  array
+  |> glearray.insert(at: 2, value: -1)
+  |> result.map(glearray.to_list)
+  |> should.equal(Ok([1, 2, -1, 3]))
+  array
+  |> glearray.insert(3, 20)
+  |> result.map(glearray.to_list)
+  |> should.equal(Ok([1, 2, 3, 20]))
 }
 
 fn assert_empty(array: Array(a)) -> Array(a) {
