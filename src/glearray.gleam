@@ -1,3 +1,5 @@
+import gleam/iterator.{type Iterator}
+
 pub type Array(a)
 
 @external(erlang, "glearray_ffi", "new")
@@ -64,3 +66,11 @@ pub fn insert(
 @external(erlang, "glearray_ffi", "insert")
 @external(javascript, "./glearray_ffi.mjs", "insert")
 fn do_insert(array: Array(a), index: Int, value: a) -> Array(a)
+
+pub fn iterate(array: Array(a)) -> Iterator(a) {
+  use index <- iterator.unfold(from: 0)
+  case at(array, index) {
+    Ok(element) -> iterator.Next(element, index + 1)
+    Error(_) -> iterator.Done
+  }
+}
