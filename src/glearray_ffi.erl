@@ -1,4 +1,4 @@
--module(glearray).
+-module(glearray_ffi).
 
 -export([new/0]).
 
