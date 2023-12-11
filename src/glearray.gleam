@@ -14,6 +14,10 @@ import gleam/iterator.{type Iterator}
 /// Arrays are represented as tuples when compiled to Erlang, and JavaScript
 /// arrays when compiled to JavaScript.
 ///
+/// Also note that this library has no connection to Erlang's
+/// [`array`](https://www.erlang.org/doc/man/array.html) module, which
+/// implements a tree structure for efficient reading and writing.
+///
 pub type Array(a)
 
 /// Returns an empty array.
