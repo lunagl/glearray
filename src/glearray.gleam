@@ -70,28 +70,30 @@ pub fn length(of array: Array(a)) -> Int
 /// `Error(Nil)` is returned if `index` is less than 0 or greater than
 /// or equal to `length(array)`.
 ///
+/// This function is very efficient and runs in constant time.
+///
 /// ## Examples
 ///
 /// ```gleam
-/// > from_list([5, 6, 7]) |> at(1)
+/// > from_list([5, 6, 7]) |> get(1)
 /// Ok(6)
 /// ```
 ///
 /// ```gleam
-/// > from_list([5, 6, 7]) |> at(3)
+/// > from_list([5, 6, 7]) |> get(3)
 /// Error(Nil)
 /// ```
 ///
-pub fn at(in array: Array(a), get index: Int) -> Result(a, Nil) {
+pub fn get(in array: Array(a), at index: Int) -> Result(a, Nil) {
   case is_valid_index(array, index) {
-    True -> Ok(do_at(array, index))
+    True -> Ok(do_get(array, index))
     False -> Error(Nil)
   }
 }
 
-@external(erlang, "glearray_ffi", "at")
-@external(javascript, "./glearray_ffi.mjs", "at")
-fn do_at(array: Array(a), index: Int) -> a
+@external(erlang, "glearray_ffi", "get")
+@external(javascript, "./glearray_ffi.mjs", "get")
+fn do_get(array: Array(a), index: Int) -> a
 
 /// Replaces the element at the given index with `value`.
 ///
@@ -205,7 +207,7 @@ fn do_insert(array: Array(a), index: Int, value: a) -> Array(a)
 ///
 pub fn iterate(array: Array(a)) -> Iterator(a) {
   use index <- iterator.unfold(from: 0)
-  case at(array, index) {
+  case get(array, index) {
     Ok(element) -> iterator.Next(element, index + 1)
     Error(_) -> iterator.Done
   }

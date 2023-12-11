@@ -29,25 +29,25 @@ pub fn from_to_list_test() {
   |> should.equal(list)
 }
 
-pub fn at_test() {
+pub fn get_test() {
   let list = ["a", "B", "fdsau", "rh3892wfd", "äèëåäº£"]
   let array = glearray.from_list(list)
   list.index_map(
     list,
     fn(index, element) {
       array
-      |> glearray.at(index)
+      |> glearray.get(index)
       |> should.equal(Ok(element))
     },
   )
 
-  glearray.at(array, -1)
+  glearray.get(array, -1)
   |> should.be_error
-  glearray.at(array, glearray.length(array))
+  glearray.get(array, glearray.length(array))
   |> should.be_error
-  glearray.at(array, 100)
+  glearray.get(array, 100)
   |> should.be_error
-  glearray.at(glearray.new(), 0)
+  glearray.get(glearray.new(), 0)
   |> should.be_error
 }
 

@@ -10,7 +10,7 @@ export function arrayLength(array) {
   return array.length;
 }
 
-export function at(array, index) {
+export function get(array, index) {
   return array[index];
 }
 
