@@ -27,7 +27,7 @@ pub fn from_to_list_test() {
 }
 
 pub fn at_test() {
-  let list = ["a", "B", "fdsau", "rh3892wfd", "äèëåäº£", "Another ONE!"]
+  let list = ["a", "B", "fdsau", "rh3892wfd", "äèëåäº£"]
   let array = glearray.from_list(list)
   list.index_map(
     list,
@@ -43,6 +43,26 @@ pub fn at_test() {
   glearray.at(array, glearray.length(array))
   |> should.be_error
   glearray.at(array, 100)
+  |> should.be_error
+  glearray.at(glearray.new(), 0)
+  |> should.be_error
+}
+
+pub fn set_test() {
+  let array = glearray.from_list([1, 2, 3, 4])
+  let assert Ok(modified) = glearray.set(in: array, at: 1, value: 10)
+  array
+  |> glearray.to_list
+  |> should.equal([1, 2, 3, 4])
+  modified
+  |> glearray.to_list
+  |> should.equal([1, 10, 3, 4])
+
+  glearray.set(array, -1, 0)
+  |> should.be_error
+  glearray.set(array, glearray.length(array), 0)
+  |> should.be_error
+  glearray.set(glearray.new(), 0, 0)
   |> should.be_error
 }
 

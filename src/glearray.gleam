@@ -17,7 +17,7 @@ pub fn to_list(array: Array(a)) -> List(a)
 pub fn length(of array: Array(a)) -> Int
 
 pub fn at(in array: Array(a), get index: Int) -> Result(a, Nil) {
-  case index >= 0 && index < length(array) {
+  case is_valid_index(array, index) {
     True -> Ok(do_at(array, index))
     False -> Error(Nil)
   }
@@ -26,3 +26,22 @@ pub fn at(in array: Array(a), get index: Int) -> Result(a, Nil) {
 @external(erlang, "glearray_ffi", "at")
 @external(javascript, "./glearray_ffi.mjs", "at")
 fn do_at(array: Array(a), index: Int) -> a
+
+pub fn set(
+  in array: Array(a),
+  at index: Int,
+  value value: a,
+) -> Result(Array(a), Nil) {
+  case is_valid_index(array, index) {
+    True -> Ok(do_set(array, index, value))
+    False -> Error(Nil)
+  }
+}
+
+@external(erlang, "glearray_ffi", "set")
+@external(javascript, "./glearray_ffi.mjs", "set")
+fn do_set(array: Array(a), index: Int, value: a) -> Array(a)
+
+fn is_valid_index(array: Array(a), index: Int) -> Bool {
+  index >= 0 && index < length(array)
+}

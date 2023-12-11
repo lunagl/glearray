@@ -13,3 +13,9 @@ export function arrayLength(array) {
 export function at(array, index) {
   return array[index];
 }
+
+export function set(array, index, value) {
+  const copy = [...array];
+  copy[index] = value;
+  return copy;
+}
