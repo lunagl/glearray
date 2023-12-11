@@ -53,7 +53,7 @@ pub fn get_test() {
 
 pub fn set_test() {
   let array = glearray.from_list([1, 2, 3, 4])
-  let assert Ok(modified) = glearray.set(in: array, at: 1, value: 10)
+  let assert Ok(modified) = glearray.copy_set(in: array, at: 1, value: 10)
   array
   |> glearray.to_list
   |> should.equal([1, 2, 3, 4])
@@ -61,26 +61,26 @@ pub fn set_test() {
   |> glearray.to_list
   |> should.equal([1, 10, 3, 4])
 
-  glearray.set(array, -1, 0)
+  glearray.copy_set(array, -1, 0)
   |> should.be_error
-  glearray.set(array, glearray.length(array), 0)
+  glearray.copy_set(array, glearray.length(array), 0)
   |> should.be_error
-  glearray.set(glearray.new(), 0, 0)
+  glearray.copy_set(glearray.new(), 0, 0)
   |> should.be_error
 }
 
 pub fn push_test() {
   glearray.new()
-  |> glearray.push(1)
-  |> glearray.push(2)
-  |> glearray.push(3)
-  |> glearray.push(4)
+  |> glearray.copy_push(1)
+  |> glearray.copy_push(2)
+  |> glearray.copy_push(3)
+  |> glearray.copy_push(4)
   |> glearray.to_list
   |> should.equal([1, 2, 3, 4])
 
   // Ensure immutability; relevant for the JS impl
   glearray.from_list([1, 2, 3])
-  |> function.tap(glearray.push(_, 4))
+  |> function.tap(glearray.copy_push(_, 4))
   |> glearray.to_list
   |> should.equal([1, 2, 3])
 }
@@ -88,15 +88,15 @@ pub fn push_test() {
 pub fn insert_test() {
   let array = glearray.from_list([1, 2, 3])
   array
-  |> glearray.insert(at: 0, value: 9)
+  |> glearray.copy_insert(at: 0, value: 9)
   |> result.map(glearray.to_list)
   |> should.equal(Ok([9, 1, 2, 3]))
   array
-  |> glearray.insert(at: 2, value: -1)
+  |> glearray.copy_insert(at: 2, value: -1)
   |> result.map(glearray.to_list)
   |> should.equal(Ok([1, 2, -1, 3]))
   array
-  |> glearray.insert(3, 20)
+  |> glearray.copy_insert(3, 20)
   |> result.map(glearray.to_list)
   |> should.equal(Ok([1, 2, 3, 20]))
 }

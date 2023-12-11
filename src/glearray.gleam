@@ -47,6 +47,8 @@ pub fn to_list(array: Array(a)) -> List(a)
 
 /// Returns the number of elements in the array.
 ///
+/// ## Performance
+///
 /// This function is very efficient and runs in constant time.
 ///
 /// ## Examples
@@ -69,6 +71,8 @@ pub fn length(of array: Array(a)) -> Int
 ///
 /// `Error(Nil)` is returned if `index` is less than 0 or greater than
 /// or equal to `length(array)`.
+///
+/// ## Performance
 ///
 /// This function is very efficient and runs in constant time.
 ///
@@ -101,19 +105,24 @@ fn do_get(array: Array(a), index: Int) -> a
 /// not valid.
 /// See also [`insert`](#insert) and [`push`](#push).
 ///
+/// ## Performance
+///
+/// This function has to copy the entire array, making it very inefficient
+/// especially for larger arrays.
+///
 /// ## Examples
 ///
 /// ```gleam
-/// > from_list(["a", "b", "c"]) |> set(1, "x")
+/// > from_list(["a", "b", "c"]) |> copy_set(1, "x")
 /// Ok(from_list(["a", "x", "c"]))
 /// ```
 ///
 /// ```gleam
-/// > from_list(["a", "b", "c"]) |> set(3, "x")
+/// > from_list(["a", "b", "c"]) |> copy_set(3, "x")
 /// Error(Nil)
 /// ```
 ///
-pub fn set(
+pub fn copy_set(
   in array: Array(a),
   at index: Int,
   value value: a,
@@ -134,16 +143,21 @@ fn is_valid_index(array: Array(a), index: Int) -> Bool {
 
 /// Adds a single element to the back of the given array.
 ///
+/// ## Performance
+///
+/// This function has to copy the entire array, making it very inefficient
+/// especially for larger arrays.
+///
 /// ## Examples
 ///
 /// ```gleam
-/// > new() |> push(1) |> push(2) |> to_list
+/// > new() |> copy_push(1) |> copy_push(2) |> to_list
 /// [1, 2]
 /// ```
 ///
 @external(erlang, "erlang", "append_element")
 @external(javascript, "./glearray_ffi.mjs", "push")
-pub fn push(onto array: Array(a), value value: a) -> Array(a)
+pub fn copy_push(onto array: Array(a), value value: a) -> Array(a)
 
 /// Inserts an element into the array at the given index.
 ///
@@ -155,29 +169,34 @@ pub fn push(onto array: Array(a), value value: a) -> Array(a)
 /// If the index is equal to `length(array)`, this function behaves like
 /// [`push`](#push).
 ///
+/// ## Performance
+///
+/// This function has to copy the entire array, making it very inefficient
+/// especially for larger arrays.
+///
 /// ## Examples
 ///
 /// ```gleam
-/// > from_list(["a", "b"]) |> insert(0, "c")
+/// > from_list(["a", "b"]) |> copy_insert(0, "c")
 /// Ok(from_list(["c", "a", "b"]))
 /// ```
 ///
 /// ```gleam
-/// > from_list(["a", "b"]) |> insert(1, "c")
+/// > from_list(["a", "b"]) |> copy_insert(1, "c")
 /// Ok(from_list(["a", "c", "b"]))
 /// ```
 ///
 /// ```gleam
-/// > from_list(["a", "b"]) |> insert(2, "c")
+/// > from_list(["a", "b"]) |> copy_insert(2, "c")
 /// Ok(from_list(["a", "b", "c"]))
 /// ```
 ///
 /// ```gleam
-/// > from_list(["a", "b"]) |> insert(3, "c")
+/// > from_list(["a", "b"]) |> copy_insert(3, "c")
 /// Error(Nil)
 /// ```
 ///
-pub fn insert(
+pub fn copy_insert(
   into array: Array(a),
   at index: Int,
   value value: a,
