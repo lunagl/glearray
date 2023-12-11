@@ -1,5 +1,5 @@
 {
-  description = "Advent of Code 2023";
+  description = "Immutable arrays for Gleam";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -18,7 +18,7 @@
         formatter = pkgs.alejandra;
 
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [gleam erlang_26 nodejs_21];
+          packages = with pkgs; [gleam erlang_26 nodejs-slim_21];
         };
       }
     );
