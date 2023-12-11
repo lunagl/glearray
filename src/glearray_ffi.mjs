@@ -1,7 +1,15 @@
-export function new_array() {
+export function newArray() {
   return [];
 }
 
-export function array_length(array) {
+export function fromList(list) {
+  return list.toArray();
+}
+
+export function arrayLength(array) {
   return array.length;
+}
+
+export function at(array, index) {
+  return array[index];
 }
