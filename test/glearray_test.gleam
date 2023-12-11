@@ -1,4 +1,5 @@
 import gleam/list
+import gleam/function
 import gleeunit
 import gleeunit/should
 import glearray.{type Array}
@@ -64,6 +65,22 @@ pub fn set_test() {
   |> should.be_error
   glearray.set(glearray.new(), 0, 0)
   |> should.be_error
+}
+
+pub fn push_test() {
+  glearray.new()
+  |> glearray.push(1)
+  |> glearray.push(2)
+  |> glearray.push(3)
+  |> glearray.push(4)
+  |> glearray.to_list
+  |> should.equal([1, 2, 3, 4])
+
+  // Ensure immutability; relevant for the JS impl
+  glearray.from_list([1, 2, 3])
+  |> function.tap(glearray.push(_, 4))
+  |> glearray.to_list
+  |> should.equal([1, 2, 3])
 }
 
 fn assert_empty(array: Array(a)) -> Array(a) {

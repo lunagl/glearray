@@ -19,3 +19,9 @@ export function set(array, index, value) {
   copy[index] = value;
   return copy;
 }
+
+export function push(array, value) {
+  const copy = [...array];
+  copy.push(value);
+  return copy;
+}

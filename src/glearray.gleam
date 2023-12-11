@@ -45,3 +45,7 @@ fn do_set(array: Array(a), index: Int, value: a) -> Array(a)
 fn is_valid_index(array: Array(a), index: Int) -> Bool {
   index >= 0 && index < length(array)
 }
+
+@external(erlang, "erlang", "append_element")
+@external(javascript, "./glearray_ffi.mjs", "push")
+pub fn push(to array: Array(a), value value: a) -> Array(a)
