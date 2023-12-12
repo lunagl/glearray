@@ -103,7 +103,7 @@ fn do_get(array: Array(a), index: Int) -> a
 ///
 /// This function cannot extend an array and returns `Error(Nil)` if `index` is
 /// not valid.
-/// See also [`insert`](#insert) and [`push`](#push).
+/// See also [`copy_insert`](#copy_insert) and [`copy_push`](#copy_push).
 ///
 /// ## Performance
 ///
@@ -167,7 +167,7 @@ pub fn copy_push(onto array: Array(a), value value: a) -> Array(a)
 /// `Error(Nil)` is returned if the index is less than 0 or greater than
 /// `length(array)`.
 /// If the index is equal to `length(array)`, this function behaves like
-/// [`push`](#push).
+/// [`copy_push`](#copy_push).
 ///
 /// ## Performance
 ///
