@@ -1,10 +1,10 @@
-import gleam/list
 import gleam/function
-import gleam/result
 import gleam/iterator
+import gleam/list
+import gleam/result
+import glearray.{type Array}
 import gleeunit
 import gleeunit/should
-import glearray.{type Array}
 
 pub fn main() {
   gleeunit.main()
@@ -32,14 +32,11 @@ pub fn from_to_list_test() {
 pub fn get_test() {
   let list = ["a", "B", "fdsau", "rh3892wfd", "äèëåäº£"]
   let array = glearray.from_list(list)
-  list.index_map(
-    list,
-    fn(index, element) {
-      array
-      |> glearray.get(index)
-      |> should.equal(Ok(element))
-    },
-  )
+  list.index_map(list, fn(element, index) {
+    array
+    |> glearray.get(index)
+    |> should.equal(Ok(element))
+  })
 
   glearray.get(array, -1)
   |> should.be_error

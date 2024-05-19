@@ -18,7 +18,7 @@
         formatter = pkgs.alejandra;
 
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [gleam erlang_26 nodejs-slim_21];
+          packages = with pkgs; [gleam erlang_26 nodejs-slim_22];
         };
       }
     );
