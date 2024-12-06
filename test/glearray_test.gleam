@@ -2,6 +2,7 @@ import gleam/function
 import gleam/iterator
 import gleam/list
 import gleam/result
+import gleam/yielder
 import glearray.{type Array}
 import gleeunit
 import gleeunit/should
@@ -109,6 +110,20 @@ fn iterate(list: List(a)) {
   |> glearray.from_list
   |> glearray.iterate
   |> iterator.to_list
+  |> should.equal(list)
+}
+
+pub fn yield_test() {
+  yield([])
+  yield([1, 2, 3, 4])
+  yield([0.4, 6.1, 99.9, -64.0])
+}
+
+fn yield(list: List(a)) {
+  list
+  |> glearray.from_list
+  |> glearray.yield
+  |> yielder.to_list
   |> should.equal(list)
 }
 

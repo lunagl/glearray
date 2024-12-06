@@ -1,4 +1,5 @@
 import gleam/iterator.{type Iterator}
+import gleam/yielder.{type Yielder}
 
 /// Arrays are ordered sequences of elements, similar to lists.
 ///
@@ -224,10 +225,19 @@ fn do_insert(array: Array(a), index: Int, value: a) -> Array(a)
 /// ["A", "B", "C"]
 /// ```
 ///
+@deprecated("Iterators have been deprecated, please use yield instead.")
 pub fn iterate(array: Array(a)) -> Iterator(a) {
   use index <- iterator.unfold(from: 0)
   case get(array, index) {
     Ok(element) -> iterator.Next(element, index + 1)
     Error(_) -> iterator.Done
+  }
+}
+
+pub fn yield(array: Array(a)) -> Yielder(a) {
+  use index <- yielder.unfold(from: 0)
+  case get(array, index) {
+    Ok(element) -> yielder.Next(element, index + 1)
+    Error(_) -> yielder.Done
   }
 }
