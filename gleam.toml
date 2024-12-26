@@ -1,5 +1,5 @@
 name = "glearray"
-version = "1.0.0"
+version = "2.0.0"
 
 description = "Immutable arrays for Gleam"
 licences = ["Apache-2.0"]
@@ -8,7 +8,7 @@ links = []
 
 [dependencies]
 gleam_stdlib = "~> 0.37"
-gleam_yielder = ">= 1.1.0 and < 2.0.0"
+gleam_yielder = "~> 1.1"
 
 [dev-dependencies]
 gleeunit = "~> 1.1"

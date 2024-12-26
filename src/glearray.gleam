@@ -1,4 +1,3 @@
-import gleam/iterator.{type Iterator}
 import gleam/yielder.{type Yielder}
 
 /// Arrays are ordered sequences of elements, similar to lists.
@@ -212,28 +211,19 @@ pub fn copy_insert(
 @external(javascript, "./glearray_ffi.mjs", "insert")
 fn do_insert(array: Array(a), index: Int, value: a) -> Array(a)
 
-/// Returns an [`Iterator`](https://hexdocs.pm/gleam_stdlib/gleam/iterator.html#Iterator)
+/// Returns a [`Yielder`](https://hexdocs.pm/gleam_yielder/gleam/yielder.html#Yielder)
 /// yielding each element in this array.
 ///
 /// ## Examples
 ///
 /// ```gleam
 /// > from_list(["a", "b", "c"])
-/// > |> iterate
-/// > |> iterator.map(string.uppercase)
-/// > |> iterator.to_list
+/// > |> yield
+/// > |> yielder.map(string.uppercase)
+/// > |> yielder.to_list
 /// ["A", "B", "C"]
 /// ```
 ///
-@deprecated("Iterators have been deprecated, please use yield instead.")
-pub fn iterate(array: Array(a)) -> Iterator(a) {
-  use index <- iterator.unfold(from: 0)
-  case get(array, index) {
-    Ok(element) -> iterator.Next(element, index + 1)
-    Error(_) -> iterator.Done
-  }
-}
-
 pub fn yield(array: Array(a)) -> Yielder(a) {
   use index <- yielder.unfold(from: 0)
   case get(array, index) {

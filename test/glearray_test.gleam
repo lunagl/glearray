@@ -1,5 +1,4 @@
 import gleam/function
-import gleam/iterator
 import gleam/list
 import gleam/result
 import gleam/yielder
@@ -97,20 +96,6 @@ pub fn insert_test() {
   |> glearray.copy_insert(3, 20)
   |> result.map(glearray.to_list)
   |> should.equal(Ok([1, 2, 3, 20]))
-}
-
-pub fn iterate_test() {
-  iterate([])
-  iterate([1, 2, 3, 4])
-  iterate([0.4, 6.1, 99.9, -64.0])
-}
-
-fn iterate(list: List(a)) {
-  list
-  |> glearray.from_list
-  |> glearray.iterate
-  |> iterator.to_list
-  |> should.equal(list)
 }
 
 pub fn yield_test() {
