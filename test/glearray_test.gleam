@@ -1,7 +1,6 @@
 import gleam/function
 import gleam/list
 import gleam/result
-import gleam/yielder
 import glearray.{type Array}
 import gleeunit
 import gleeunit/should
@@ -96,20 +95,6 @@ pub fn insert_test() {
   |> glearray.copy_insert(3, 20)
   |> result.map(glearray.to_list)
   |> should.equal(Ok([1, 2, 3, 20]))
-}
-
-pub fn yield_test() {
-  yield([])
-  yield([1, 2, 3, 4])
-  yield([0.4, 6.1, 99.9, -64.0])
-}
-
-fn yield(list: List(a)) {
-  list
-  |> glearray.from_list
-  |> glearray.yield
-  |> yielder.to_list
-  |> should.equal(list)
 }
 
 fn assert_empty(array: Array(a)) -> Array(a) {

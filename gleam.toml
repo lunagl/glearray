@@ -8,7 +8,6 @@ links = []
 
 [dependencies]
 gleam_stdlib = "~> 0.37"
-gleam_yielder = "~> 1.1"
 
 [dev-dependencies]
 gleeunit = "~> 1.1"

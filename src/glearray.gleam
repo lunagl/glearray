@@ -1,5 +1,3 @@
-import gleam/yielder.{type Yielder}
-
 /// Arrays are ordered sequences of elements, similar to lists.
 ///
 /// Like everything in Gleam, arrays are immutable.
@@ -210,24 +208,3 @@ pub fn copy_insert(
 @external(erlang, "glearray_ffi", "insert")
 @external(javascript, "./glearray_ffi.mjs", "insert")
 fn do_insert(array: Array(a), index: Int, value: a) -> Array(a)
-
-/// Returns a [`Yielder`](https://hexdocs.pm/gleam_yielder/gleam/yielder.html#Yielder)
-/// yielding each element in this array.
-///
-/// ## Examples
-///
-/// ```gleam
-/// > from_list(["a", "b", "c"])
-/// > |> yield
-/// > |> yielder.map(string.uppercase)
-/// > |> yielder.to_list
-/// ["A", "B", "C"]
-/// ```
-///
-pub fn yield(array: Array(a)) -> Yielder(a) {
-  use index <- yielder.unfold(from: 0)
-  case get(array, index) {
-    Ok(element) -> yielder.Next(element, index + 1)
-    Error(_) -> yielder.Done
-  }
-}
