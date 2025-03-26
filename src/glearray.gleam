@@ -86,6 +86,7 @@ pub fn length(of array: Array(a)) -> Int
 /// Error(Nil)
 /// ```
 ///
+@external(erlang, "glearray_ffi", "get")
 pub fn get(in array: Array(a), at index: Int) -> Result(a, Nil) {
   case is_valid_index(array, index) {
     True -> Ok(do_get(array, index))
@@ -93,7 +94,6 @@ pub fn get(in array: Array(a), at index: Int) -> Result(a, Nil) {
   }
 }
 
-@external(erlang, "glearray_ffi", "get")
 @external(javascript, "./glearray_ffi.mjs", "get")
 fn do_get(array: Array(a), index: Int) -> a
 

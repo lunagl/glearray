@@ -4,7 +4,11 @@
 
 new() -> {}.
 
-get(Array, Index) -> element(Index + 1, Array).
+get(Array, Index) ->
+  case catch element(Index + 1, Array) of
+    {'EXIT', _} -> {error,nil};
+    E -> {ok,E}
+  end.
 
 set(Array, Index, Value) -> setelement(Index + 1, Array, Value).
 
