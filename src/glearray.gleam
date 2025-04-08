@@ -94,6 +94,35 @@ pub fn get(in array: Array(a), at index: Int) -> Result(a, Nil) {
   }
 }
 
+/// Returns the element at the specified index, starting from 0.
+///
+/// The specified default is returned if `index` is less than 0 or
+/// greater than / or equal to `length(array)`.
+///
+/// ## Performance
+///
+/// This function is very efficient and runs in constant time.
+///
+/// ## Examples
+///
+/// ```gleam
+/// > from_list([5, 6, 7]) |> get_or_default(1, -1)
+/// 6
+/// ```
+///
+/// ```gleam
+/// > from_list([5, 6, 7]) |> get_or_default(3, -1)
+/// -1
+/// ```
+///
+@external(erlang, "glearray_ffi", "get_or_default")
+pub fn get_or_default(in array: Array(a), at index: Int, or default: a) -> a {
+  case is_valid_index(array, index) {
+    True -> do_get(array, index)
+    False -> default
+  }
+}
+
 @external(javascript, "./glearray_ffi.mjs", "get")
 fn do_get(array: Array(a), index: Int) -> a
 
