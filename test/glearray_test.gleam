@@ -47,6 +47,25 @@ pub fn get_test() {
   |> should.be_error
 }
 
+pub fn get_or_default_test() {
+  let list = [5, 4, 3, 2, 1]
+  let array = glearray.from_list(list)
+  list.index_map(list, fn(element, index) {
+    array
+    |> glearray.get_or_default(index, -1)
+    |> should.equal(element)
+  })
+
+  glearray.get_or_default(array, -1, -1)
+  |> should.equal(-1)
+  glearray.get_or_default(array, glearray.length(array), 42)
+  |> should.equal(42)
+  glearray.get_or_default(array, 100, -1)
+  |> should.equal(-1)
+  glearray.get_or_default(glearray.new(), 0, 0)
+  |> should.equal(0)
+}
+
 pub fn set_test() {
   let array = glearray.from_list([1, 2, 3, 4])
   let assert Ok(modified) = glearray.copy_set(in: array, at: 1, value: 10)
