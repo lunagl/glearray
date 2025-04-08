@@ -120,6 +120,7 @@ fn do_get(array: Array(a), index: Int) -> a
 /// Error(Nil)
 /// ```
 ///
+@external(erlang, "glearray_ffi", "set")
 pub fn copy_set(
   in array: Array(a),
   at index: Int,
@@ -131,7 +132,6 @@ pub fn copy_set(
   }
 }
 
-@external(erlang, "glearray_ffi", "set")
 @external(javascript, "./glearray_ffi.mjs", "set")
 fn do_set(array: Array(a), index: Int, value: a) -> Array(a)
 
@@ -194,6 +194,7 @@ pub fn copy_push(onto array: Array(a), value value: a) -> Array(a)
 /// Error(Nil)
 /// ```
 ///
+@external(erlang, "glearray_ffi", "insert")
 pub fn copy_insert(
   into array: Array(a),
   at index: Int,
@@ -205,6 +206,5 @@ pub fn copy_insert(
   }
 }
 
-@external(erlang, "glearray_ffi", "insert")
 @external(javascript, "./glearray_ffi.mjs", "insert")
 fn do_insert(array: Array(a), index: Int, value: a) -> Array(a)
