@@ -16,6 +16,14 @@ get_or_default(Array, Index, Default) ->
     E -> E
   end.
 
-set(Array, Index, Value) -> setelement(Index + 1, Array, Value).
+set(Array, Index, Value) ->
+  case catch setelement(Index + 1, Array, Value) of
+    {'EXIT', _} -> {error,nil};
+    A -> {ok,A}
+  end.
 
-insert(Array, Index, Value) -> erlang:insert_element(Index + 1, Array, Value).
+insert(Array, Index, Value) ->
+  case catch erlang:insert_element(Index + 1, Array, Value) of
+    {'EXIT', _} -> {error,nil};
+    A -> {ok,A}
+  end.
