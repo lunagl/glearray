@@ -95,7 +95,10 @@ pub fn push_test() {
 
   // Ensure immutability; relevant for the JS impl
   glearray.from_list([1, 2, 3])
-  |> function.tap(glearray.copy_push(_, 4))
+  |> fn(array) {
+    glearray.copy_push(array, 4)
+    array
+  }
   |> glearray.to_list
   |> should.equal([1, 2, 3])
 }
