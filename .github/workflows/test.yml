@@ -16,6 +16,8 @@ jobs:
       - shell: "nix develop -c bash -e {0}"
         run: gleam deps download
       - shell: "nix develop -c bash -e {0}"
+        run: gleam build --warnings-as-errors
+      - shell: "nix develop -c bash -e {0}"
         run: gleam test --target erlang
       - shell: "nix develop -c bash -e {0}"
         run: gleam test --target javascript

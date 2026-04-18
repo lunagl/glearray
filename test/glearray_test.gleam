@@ -1,4 +1,3 @@
-import gleam/function
 import gleam/list
 import gleam/result
 import glearray.{type Array}
