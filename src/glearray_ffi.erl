@@ -5,25 +5,29 @@
 new() -> {}.
 
 get(Array, Index) ->
-    case catch element(Index + 1, Array) of
-        {'EXIT', _} -> {error, nil};
+    try element(Index + 1, Array) of
         E -> {ok, E}
+    catch
+        error:badarg -> {error, nil}
     end.
 
 get_or_default(Array, Index, Default) ->
-    case catch element(Index + 1, Array) of
-        {'EXIT', _} -> Default;
+    try element(Index + 1, Array) of
         E -> E
+    catch
+        error:badarg -> Default
     end.
 
 set(Array, Index, Value) ->
-    case catch setelement(Index + 1, Array, Value) of
-        {'EXIT', _} -> {error, nil};
+    try setelement(Index + 1, Array, Value) of
         A -> {ok, A}
+    catch
+        error:badarg -> {error, nil}
     end.
 
 insert(Array, Index, Value) ->
-    case catch erlang:insert_element(Index + 1, Array, Value) of
-        {'EXIT', _} -> {error, nil};
+    try erlang:insert_element(Index + 1, Array, Value) of
         A -> {ok, A}
+    catch
+        error:badarg -> {error, nil}
     end.
